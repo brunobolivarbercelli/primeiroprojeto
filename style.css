@@ -226,8 +226,6 @@ footer {
   display: none;
   list-style: none;
 }
-
 .submenu-parent:hover .submenu {
   display: block;
 }
-//* teste
