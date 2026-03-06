@@ -21,6 +21,7 @@ const produtos = [
   { nome: "Tomate", categoria: "Hortifruti" },
   { nome: "Alface", categoria: "Hortifruti" },
   { nome: "Ovos", categoria: "Hortifruti" },
+  { nome: "Milho", categoria: "Hortifruti" },
 
   { nome: "Presunto", categoria: "Frios" },
   { nome: "Mussarela", categoria: "Frios" },
