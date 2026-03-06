@@ -34,11 +34,14 @@ const produtos = [
   { nome: "Vinho", categoria: "Liquidos" },
   { nome: "Destilados", categoria: "Liquidos" },
 
-  { nome: "Carne moida", categoria: "Acougue" },
-  { nome: "Filé de frango", categoria: "Acougue" },
-  { nome: "Bife bovino", categoria: "Acougue" },
-  { nome: "Linguiça", categoria: "Acougue" },
-  { nome: "Peixe", categoria: "Acougue" },
+  { nome: "Carne moida", categoria: "Açougue" },
+  { nome: "Filé de frango", categoria: "Açougue" },
+  { nome: "Coxa e Sobrecoxa", categoria: "Açougue" },
+  { nome: "Coxão Duro", categoria: "Açougue" },
+  { nome: "Picanha", categoria: "Açougue" },
+  { nome: "Coxão Mole", categoria: "Açougue" },
+  { nome: "Linguiça", categoria: "Açougue" },
+  { nome: "Filé de Tilápia", categoria: "Açougue" },
 
   { nome: "Embalagem Aluminio P", categoria: "Embalagens" },
   { nome: "Embalagem Aluminio M", categoria: "Embalagens" },
@@ -106,32 +109,36 @@ Calcular
 }
 
 // ============================
-// BUSCA
+// FUNÇÃO PARA REMOVER ACENTOS
 // ============================
+function removerAcentos(str) {
+  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+}
 
+// ============================
+// BUSCA DE PRODUTOS
+// ============================
 function buscarProduto() {
-  const termo = document.getElementById("busca").value.toLowerCase()
+  const termo = removerAcentos(
+    document.getElementById("busca").value.toLowerCase(),
+  )
 
   const grid = document.getElementById("gridProdutos")
   grid.innerHTML = ""
 
-  const filtrados = produtos.filter((p) => p.nome.includes(termo))
+  const filtrados = produtos.filter((p) =>
+    removerAcentos(p.nome.toLowerCase()).includes(termo),
+  )
 
   filtrados.forEach((produto) => {
     const card = document.createElement("div")
     card.className = "cardProduto"
 
     card.innerHTML = `
-
-<img src="assets/images/${produto.nome}.png">
-
-<h3>${produto.nome.replace("_", " ")}</h3>
-
-<button onclick="abrirCalculadora('${produto.nome}')">
-Calcular
-</button>
-
-`
+      <img src="assets/images/${produto.nome}.png">
+      <h3>${produto.nome.replace("_", " ")}</h3>
+      <button onclick="abrirCalculadora('${produto.nome}')">Calcular</button>
+    `
 
     grid.appendChild(card)
   })
@@ -207,17 +214,32 @@ function calcular() {
 // ============================
 
 function adicionarCesta() {
-  const custo = calcular()
+  const custoBase = calcular() // pega o custo da calculadora
+
+  // Pega os valores da cesta
+  const margem = parseFloat(document.getElementById("margemLucro").value) || 0
+  const taxa = parseFloat(document.getElementById("taxaPlataforma").value) || 0
+
+  // Calcula custo final com margem e taxa
+  const custoFinal =
+    custoBase + custoBase * (margem / 100) + custoBase * (taxa / 100)
 
   cesta.push({
     produto: produtoAtual,
-    valor: custo,
+    custoBase: custoBase,
+    margem: margem,
+    taxaPlataforma: taxa,
+    valor: custoFinal,
   })
+  document
+    .getElementById("margemLucro")
+    .addEventListener("input", atualizarCesta)
+  document
+    .getElementById("taxaPlataforma")
+    .addEventListener("input", atualizarCesta)
 
   renderCesta()
-
   limparCalculadora()
-
   fecharCalculadora()
 }
 
@@ -237,12 +259,12 @@ function renderCesta() {
     const div = document.createElement("div")
 
     div.innerHTML = `
-
-${item.produto} - R$ ${item.valor.toFixed(2)}
-
-<button onclick="removerItem(${index})">🗑</button>
-
-`
+      <strong>${item.produto}</strong> - R$ ${item.valor.toFixed(2)}
+      <br>
+      <small>Custo: R$ ${item.custoBase.toFixed(2)}, Margem: ${item.margem}%, Taxa: ${item.taxaPlataforma}%</small>
+      <br>
+      <button onclick="removerItem(${index})">🗑</button>
+    `
 
     lista.appendChild(div)
   })
@@ -306,3 +328,24 @@ function converterParaBase(valor) {
 
 renderCategorias()
 renderProdutos("Mercearia")
+
+// ============================
+// ATUALIZAR CESTA
+// ============================
+
+function atualizarCesta() {
+  const margem = parseFloat(document.getElementById("margemLucro").value) || 0
+  const taxa = parseFloat(document.getElementById("taxaPlataforma").value) || 0
+
+  cesta.forEach((item) => {
+    // Recalcula o valor final de cada item
+    item.valor =
+      item.custoBase +
+      item.custoBase * (margem / 100) +
+      item.custoBase * (taxa / 100)
+    item.margem = margem
+    item.taxaPlataforma = taxa
+  })
+
+  renderCesta()
+}

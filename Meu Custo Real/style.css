@@ -8,6 +8,49 @@
   box-sizing: border-box;
   font-family: Arial, Helvetica, sans-serif;
 }
+/* ========================= */
+/* LOGOTIPO */
+/* ========================= */
+/* Container do header */
+.headerPrincipal {
+  display: flex; /* Coloca logo e título na mesma linha */
+  align-items: center; /* Alinha verticalmente */
+  gap: 15px; /* Espaço entre logo e título */
+  padding: 10px 20px; /* Espaçamento interno */
+  background-color: #ffffff; /* Cor de fundo do header */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra leve */
+}
+
+/* Logo */
+.logoImagem {
+  height: 100px; /* Tamanho fixo da logo */
+  width: auto;
+  object-fit: contain;
+}
+
+/* Título do site */
+.tituloSite {
+  font-size: 1.5rem;
+  color: #333;
+  margin: 0;
+  font-family: "Arial", sans-serif;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+  .headerPrincipal {
+    flex-direction: column; /* Logo em cima do título em telas pequenas */
+    gap: 10px;
+  }
+
+  .logoImagem {
+    height: 50px;
+  }
+
+  .tituloSite {
+    font-size: 1.2rem;
+  }
+}
 
 /* ========================= */
 /* BODY */
