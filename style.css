@@ -172,7 +172,40 @@ footer {
   text-align: center;
   font-size: 14px;
 }
+@media (min-width: 700px) {
+  body {
+    background: var(--bg-url) no-repeat top center/cover;
+  }
 
+  #container {
+    margin-top: 96px;
+    padding: 0;
+  }
+}
+@media (min-width: 700px) {
+  :root {
+    --bg-url: url(./assets/bg-desktop.jpg);
+  }
+  .light {
+    --bg-url: url(./assets/bg-desktop-light.jpg);
+  }
+}
+@keyframes slide-in {
+  from {
+    left: 0;
+  }
+  to {
+    left: 50%;
+  }
+}
+@keyframes slide-back {
+  from {
+    left: 50%;
+  }
+  to {
+    left: 0;
+  }
+}
 .menu {
   list-style: none;
   padding: 0;
@@ -208,39 +241,4 @@ footer {
 
 .submenu-parent:hover .submenu {
   display: block;
-}
-
-@media (min-width: 700px) {
-  body {
-    background: var(--bg-url) no-repeat top center/cover;
-  }
-
-  #container {
-    margin-top: 96px;
-    padding: 0;
-  }
-}
-@media (min-width: 700px) {
-  :root {
-    --bg-url: url(./assets/bg-desktop.jpg);
-  }
-  .light {
-    --bg-url: url(./assets/bg-desktop-light.jpg);
-  }
-}
-@keyframes slide-in {
-  from {
-    left: 0;
-  }
-  to {
-    left: 50%;
-  }
-}
-@keyframes slide-back {
-  from {
-    left: 50%;
-  }
-  to {
-    left: 0;
-  }
 }
