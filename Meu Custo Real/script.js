@@ -40,15 +40,15 @@ const produtos = [
   { nome: "Linguiça", categoria: "Acougue" },
   { nome: "Peixe", categoria: "Acougue" },
 
-  { nome: "embalagem_aluminio_p", categoria: "Embalagens" },
-  { nome: "embalagem_aluminio_m", categoria: "Embalagens" },
-  { nome: "embalagem_aluminio_g", categoria: "Embalagens" },
-  { nome: "embalagem_isopor_p", categoria: "Embalagens" },
-  { nome: "embalagem_isopor_m", categoria: "Embalagens" },
-  { nome: "embalagem_isopor_g", categoria: "Embalagens" },
-  { nome: "embalagem_papelao_p", categoria: "Embalagens" },
-  { nome: "embalagem_papelao_m", categoria: "Embalagens" },
-  { nome: "embalagem_papelao_g", categoria: "Embalagens" },
+  { nome: "Embalagem Aluminio P", categoria: "Embalagens" },
+  { nome: "Embalagem Aluminio M", categoria: "Embalagens" },
+  { nome: "Embalagem Aluminio G", categoria: "Embalagens" },
+  { nome: "Embalagem Isopor P", categoria: "Embalagens" },
+  { nome: "Embalagem Isopor M", categoria: "Embalagens" },
+  { nome: "Embalagem Isopor G", categoria: "Embalagens" },
+  { nome: "Embalagem Papelão P", categoria: "Embalagens" },
+  { nome: "Embalagem Papelão M", categoria: "Embalagens" },
+  { nome: "Embalagem Papelão G", categoria: "Embalagens" },
 ]
 
 const categorias = [...new Set(produtos.map((p) => p.categoria))]
